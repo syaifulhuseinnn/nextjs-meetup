@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 import Head from "next/head";
 import MeetupList from "../components/meetup/MeetupList";
 import Error from "../components/error/Error";
@@ -6,21 +7,18 @@ import Error from "../components/error/Error";
 export default function Home({ meetups, status, message }) {
   const [meetupsData, setMeetupsData] = useState(meetups);
 
-  const getLatestMeetups = async () => {
-    try {
-      const response = await fetch(
-        "https://meetup-fake-api.herokuapp.com/meetups"
-      );
-      const data = await response.json();
-      setMeetupsData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  const { data, error } = useSWR(
+    "https://meetup-fake-api.herokuapp.com/meetups",
+    fetcher
+  );
 
   useEffect(() => {
-    getLatestMeetups();
-  }, []);
+    if (data) {
+      setMeetupsData(data);
+    }
+  }, [data]);
 
   if (status !== 200) {
     return <Error status={status} message={message} />;
