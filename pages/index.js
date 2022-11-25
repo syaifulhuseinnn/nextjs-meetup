@@ -31,6 +31,7 @@ export async function getStaticProps() {
           status: response.status,
           message: response.statusText,
         },
+        revalidate: 1,
       };
     } else {
       console.error(response);
