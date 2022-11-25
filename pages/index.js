@@ -12,15 +12,14 @@ export default function Home({ meetups, status, message }) {
         "https://meetup-fake-api.herokuapp.com/meetups"
       );
       const data = await response.json();
-      return data;
+      setMeetupsData(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(async () => {
-    const latestMeetupsData = await getLatestMeetups();
-    setMeetupsData(latestMeetupsData);
+  useEffect(() => {
+    getLatestMeetups();
   }, []);
 
   if (status !== 200) {
