@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import MeetupList from '../components/meetup/MeetupList';
-import Error from '../components/error/Error';
+import Head from "next/head";
+import MeetupList from "../components/meetup/MeetupList";
+import Error from "../components/error/Error";
 
 export default function Home({ meetups, status, message }) {
   if (status !== 200) {
@@ -17,10 +17,10 @@ export default function Home({ meetups, status, message }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const response = await fetch(
-      'https://meetup-fake-api.herokuapp.com/meetups'
+      "https://meetup-fake-api.herokuapp.com/meetups"
     );
 
     if (response.status === 200) {
@@ -31,7 +31,6 @@ export async function getStaticProps() {
           status: response.status,
           message: response.statusText,
         },
-        revalidate: 1,
       };
     } else {
       console.error(response);
