@@ -25,7 +25,7 @@ export async function getStaticPaths() {
     const meetupsData = await response.json();
 
     return {
-      fallback: false,
+      fallback: 'blocking',
       paths: meetupsData.map((meetup) => {
         return {
           params: {
