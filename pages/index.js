@@ -1,8 +1,28 @@
-import Head from 'next/head';
-import MeetupList from '../components/meetup/MeetupList';
-import Error from '../components/error/Error';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import MeetupList from "../components/meetup/MeetupList";
+import Error from "../components/error/Error";
 
 export default function Home({ meetups, status, message }) {
+  const [meetupsData, setMeetupsData] = useState(meetups);
+
+  const getLatestMeetups = async () => {
+    try {
+      const response = await fetch(
+        "https://meetup-fake-api.herokuapp.com/meetups"
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(async () => {
+    const latestMeetupsData = await getLatestMeetups();
+    setMeetupsData(latestMeetupsData);
+  }, []);
+
   if (status !== 200) {
     return <Error status={status} message={message} />;
   }
@@ -12,7 +32,7 @@ export default function Home({ meetups, status, message }) {
         <title>Meetup App</title>
         <meta name="description" content="Discover meetup around you!" />
       </Head>
-      <MeetupList data={meetups} />
+      <MeetupList data={meetupsData} />
     </>
   );
 }
@@ -20,7 +40,7 @@ export default function Home({ meetups, status, message }) {
 export async function getStaticProps() {
   try {
     const response = await fetch(
-      'https://meetup-fake-api.herokuapp.com/meetups'
+      "https://meetup-fake-api.herokuapp.com/meetups"
     );
 
     if (response.status === 200) {
@@ -31,7 +51,6 @@ export async function getStaticProps() {
           status: response.status,
           message: response.statusText,
         },
-        revalidate: 1,
       };
     } else {
       console.error(response);
