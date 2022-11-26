@@ -1,9 +1,9 @@
-import { Flex, Text, Box, Heading, Center, Spacer } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Flex, Text, Box, Heading, Center, Spacer } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function Navigation() {
   return (
-    <Flex bgColor="purple.600" p={6} mb={6}>
+    <Flex bgColor="purple.600" p={6}>
       <Center>
         <Heading as="h1" textColor="white" size="md">
           Meetup App

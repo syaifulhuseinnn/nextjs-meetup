@@ -10,9 +10,9 @@ import {
   Image,
   Stack,
   Button,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function MeetupItem({ id, title, address, image }) {
   const router = useRouter();
@@ -23,16 +23,18 @@ export default function MeetupItem({ id, title, address, image }) {
 
   return (
     <Card
-      direction={{ base: 'column', sm: 'row' }}
+      direction={{ base: "column", md: "row", xl: "column" }}
       overflow="hidden"
       variant="outline"
-      minH="240px"
+      minH={{ lg: "290px", xl: "300px" }}
     >
       <Image
         objectFit="cover"
-        maxW={{ base: '100%', sm: '200px' }}
+        maxW={{ base: "100%", md: "190px", xl: "unset" }}
         src={image}
         alt={title}
+        height={{ xl: "250px" }}
+        width={{ xl: "100%" }}
       />
 
       <Stack>
