@@ -1,25 +1,10 @@
 import { useState, useEffect } from "react";
-import useSWR from "swr";
 import Head from "next/head";
 import MeetupList from "../components/meetup/MeetupList";
 import Error from "../components/error/Error";
+import { getSession } from "next-auth/react";
 
 export default function Home({ meetups, status, message }) {
-  const [meetupsData, setMeetupsData] = useState(meetups);
-
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-  const { data, error } = useSWR(
-    "https://meetup-fake-api.herokuapp.com/meetups",
-    fetcher
-  );
-
-  useEffect(() => {
-    if (data) {
-      setMeetupsData(data);
-    }
-  }, [data]);
-
   if (status !== 200) {
     return <Error status={status} message={message} />;
   }
@@ -29,12 +14,23 @@ export default function Home({ meetups, status, message }) {
         <title>Meetup App</title>
         <meta name="description" content="Discover meetup around you!" />
       </Head>
-      <MeetupList data={meetupsData} />
+      <MeetupList data={meetups} />
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
+  const session = await getSession({ req: context.req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/api/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
   try {
     const response = await fetch(
       "https://meetup-fake-api.herokuapp.com/meetups"

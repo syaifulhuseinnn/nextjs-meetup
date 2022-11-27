@@ -1,5 +1,5 @@
-import MeetupDetails from '../../../components/meetup/MeetupDetails';
-import Head from 'next/head';
+import MeetupDetails from "../../../components/meetup/MeetupDetails";
+import Head from "next/head";
 
 export default function MeetupDetailsPage({ meetup }) {
   return (
@@ -19,13 +19,13 @@ export default function MeetupDetailsPage({ meetup }) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch('https://meetup-fake-api.herokuapp.com/meetups');
+  const response = await fetch("https://meetup-fake-api.herokuapp.com/meetups");
 
   if (response.status === 200) {
     const meetupsData = await response.json();
 
     return {
-      fallback: 'blocking',
+      fallback: "blocking",
       paths: meetupsData.map((meetup) => {
         return {
           params: {

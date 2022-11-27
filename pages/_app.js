@@ -2,15 +2,18 @@ import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Container } from "@chakra-ui/react";
 import Navigation from "../components/navigation/Navigation";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <ChakraProvider>
-      <Container maxW="full" p={0}>
-        <Navigation />
-        <Component {...pageProps} />
-      </Container>
-    </ChakraProvider>
+    <SessionProvider session={session}>
+      <ChakraProvider>
+        <Container maxW="full" p={0}>
+          <Navigation />
+          <Component {...pageProps} />
+        </Container>
+      </ChakraProvider>
+    </SessionProvider>
   );
 }
 
