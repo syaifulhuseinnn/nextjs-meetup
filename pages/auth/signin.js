@@ -22,18 +22,25 @@ export default function SignIn({ providers }) {
       justifyContent="center"
       alignItems="center"
       gap={8}
+      p={{ base: 3 }}
     >
       <Heading>Sign In</Heading>
-      <VStack width="md" boxShadow="base" rounded="md" p={6} gap={2}>
+      <VStack
+        boxShadow="base"
+        rounded="md"
+        p={6}
+        gap={2}
+        width={{ base: "full", md: "md" }}
+      >
         <FormControl>
           <FormLabel>Email</FormLabel>
-          <Input type="email" placeholder="Email" />
+          <Input type="email" placeholder="Email" size="lg" />
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>
-          <Input type="password" placeholder="Password" />
+          <Input type="password" placeholder="Password" size="lg" />
         </FormControl>
-        <Button colorScheme="messenger" width="full">
+        <Button colorScheme="messenger" width="full" size="lg">
           Sign In
         </Button>
         <Divider />
@@ -43,6 +50,7 @@ export default function SignIn({ providers }) {
           onClick={() => signIn(providers.google.id)}
           rightIcon={<FcGoogle />}
           variant="outline"
+          size="lg"
         >
           Sign In with {providers.google.name}
         </Button>
