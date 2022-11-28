@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <SessionProvider session={session}>
       <ChakraProvider>
         <Container maxW="full" p={0}>
-          <Navigation />
           <Component {...pageProps} />
         </Container>
       </ChakraProvider>

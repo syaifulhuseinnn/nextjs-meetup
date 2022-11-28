@@ -19,6 +19,7 @@ export default function MeetupList({ data }) {
             title={meetup.title}
             address={meetup.address}
             image={meetup.image}
+            description={meetup.description}
           />
         </GridItem>
       ))}

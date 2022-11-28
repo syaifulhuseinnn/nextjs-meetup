@@ -1,9 +1,10 @@
 import MeetupDetails from "../../../components/meetup/MeetupDetails";
 import Head from "next/head";
+import MainLayout from "../../../layouts/MainLayout";
 
 export default function MeetupDetailsPage({ meetup }) {
   return (
-    <>
+    <MainLayout>
       <Head>
         <title>{meetup.title}</title>
         <meta name="description" content={meetup.description} />
@@ -14,7 +15,7 @@ export default function MeetupDetailsPage({ meetup }) {
         address={meetup.address}
         description={meetup.description}
       />
-    </>
+    </MainLayout>
   );
 }
 

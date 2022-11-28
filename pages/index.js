@@ -3,19 +3,21 @@ import Head from "next/head";
 import MeetupList from "../components/meetup/MeetupList";
 import Error from "../components/error/Error";
 import { getSession } from "next-auth/react";
+import MainLayout from "../layouts/MainLayout";
 
 export default function Home({ meetups, status, message }) {
   if (status !== 200) {
     return <Error status={status} message={message} />;
   }
   return (
-    <>
+    <MainLayout>
       <Head>
         <title>Meetup App</title>
         <meta name="description" content="Discover meetup around you!" />
       </Head>
+
       <MeetupList data={meetups} />
-    </>
+    </MainLayout>
   );
 }
 
@@ -25,7 +27,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: "/api/auth/signin",
+        destination: "/auth/signin",
         permanent: false,
       },
     };
