@@ -6,7 +6,7 @@ import {
   AspectRatio,
   Box,
   Divider,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 export default function MeetupDetails({ image, title, address, description }) {
   return (
@@ -19,7 +19,13 @@ export default function MeetupDetails({ image, title, address, description }) {
         width="100%"
       />
       <Divider />
-      <Box as="article" width="100%" display="flex" flexDir="column" gap={8}>
+      <Box
+        as="article"
+        width={{ xl: "70%" }}
+        display="flex"
+        flexDir="column"
+        gap={8}
+      >
         <Heading as="h1" size="2xl">
           {title}
         </Heading>
@@ -31,8 +37,10 @@ export default function MeetupDetails({ image, title, address, description }) {
             {address}
           </Text>
         </Box>
+        <Text as="p" fontSize="lg" lineHeight={9} textAlign="justify">
+          {description}
+        </Text>
       </Box>
-      <Text>{description}</Text>
     </VStack>
   );
 }

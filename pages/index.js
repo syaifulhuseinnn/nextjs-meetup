@@ -1,26 +1,41 @@
-import Head from 'next/head';
-import MeetupList from '../components/meetup/MeetupList';
-import Error from '../components/error/Error';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import MeetupList from "../components/meetup/MeetupList";
+import Error from "../components/error/Error";
+import { getSession } from "next-auth/react";
+import MainLayout from "../layouts/MainLayout";
 
 export default function Home({ meetups, status, message }) {
   if (status !== 200) {
     return <Error status={status} message={message} />;
   }
   return (
-    <>
+    <MainLayout>
       <Head>
         <title>Meetup App</title>
         <meta name="description" content="Discover meetup around you!" />
       </Head>
+
       <MeetupList data={meetups} />
-    </>
+    </MainLayout>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
+  const session = await getSession({ req: context.req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
   try {
     const response = await fetch(
-      'https://meetup-fake-api.herokuapp.com/meetups'
+      "https://meetup-fake-api.herokuapp.com/meetups"
     );
 
     if (response.status === 200) {
@@ -31,7 +46,6 @@ export async function getStaticProps() {
           status: response.status,
           message: response.statusText,
         },
-        revalidate: 1,
       };
     } else {
       console.error(response);

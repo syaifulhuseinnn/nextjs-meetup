@@ -10,10 +10,11 @@ import {
   Button,
   useToast,
   Text,
-} from '@chakra-ui/react';
-import { Formik, Form, Field } from 'formik';
-import { nanoid } from 'nanoid';
-import Head from 'next/head';
+} from "@chakra-ui/react";
+import { Formik, Form, Field } from "formik";
+import { nanoid } from "nanoid";
+import Head from "next/head";
+import MainLayout from "../../layouts/MainLayout";
 
 function MyCustomInput({ label, field, form: { touched, errors }, ...props }) {
   return <Input type="text" {...field} {...props} />;
@@ -34,11 +35,11 @@ export default function AddNewMeetup() {
   async function addNewMeetupHandler(data) {
     try {
       const postNewMeetup = await fetch(
-        'https://meetup-fake-api.herokuapp.com/meetups',
+        "https://meetup-fake-api.herokuapp.com/meetups",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            "Content-type": "application/json; charset=UTF-8",
           },
           body: JSON.stringify(data),
         }
@@ -46,9 +47,9 @@ export default function AddNewMeetup() {
 
       if (postNewMeetup.status === 201) {
         toast({
-          title: 'New Meetup Added',
+          title: "New Meetup Added",
           description: "We've added your meetup for you.",
-          status: 'success',
+          status: "success",
           duration: 9000,
           isClosable: true,
         });
@@ -59,17 +60,18 @@ export default function AddNewMeetup() {
   }
 
   return (
-    <>
+    <MainLayout>
       <Head>
         <title>Add New Meetup</title>
         <meta name="description" content="Add your own meetup!" />
       </Head>
+
       <Formik
         initialValues={{
-          title: '',
-          address: '',
-          description: '',
-          image: '',
+          title: "",
+          address: "",
+          description: "",
+          image: "",
         }}
         onSubmit={async (values, action) => {
           console.log(action);
@@ -80,7 +82,7 @@ export default function AddNewMeetup() {
       >
         {(formik) => (
           <Form>
-            <Center>
+            <Center p={8}>
               <VStack w="xl" spacing={6}>
                 <FormControl isRequired>
                   <FormLabel>Meetup Title</FormLabel>
@@ -123,13 +125,13 @@ export default function AddNewMeetup() {
                   isLoading={formik.isSubmitting}
                   loadingText="Adding Meetup"
                 >
-                  Add Meetup
+                  Submit
                 </Button>
               </VStack>
             </Center>
           </Form>
         )}
       </Formik>
-    </>
+    </MainLayout>
   );
 }

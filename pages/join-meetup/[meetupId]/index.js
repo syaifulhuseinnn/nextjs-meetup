@@ -1,9 +1,10 @@
-import MeetupDetails from '../../../components/meetup/MeetupDetails';
-import Head from 'next/head';
+import MeetupDetails from "../../../components/meetup/MeetupDetails";
+import Head from "next/head";
+import MainLayout from "../../../layouts/MainLayout";
 
 export default function MeetupDetailsPage({ meetup }) {
   return (
-    <>
+    <MainLayout>
       <Head>
         <title>{meetup.title}</title>
         <meta name="description" content={meetup.description} />
@@ -14,18 +15,18 @@ export default function MeetupDetailsPage({ meetup }) {
         address={meetup.address}
         description={meetup.description}
       />
-    </>
+    </MainLayout>
   );
 }
 
 export async function getStaticPaths() {
-  const response = await fetch('https://meetup-fake-api.herokuapp.com/meetups');
+  const response = await fetch("https://meetup-fake-api.herokuapp.com/meetups");
 
   if (response.status === 200) {
     const meetupsData = await response.json();
 
     return {
-      fallback: 'blocking',
+      fallback: "blocking",
       paths: meetupsData.map((meetup) => {
         return {
           params: {
