@@ -60,12 +60,7 @@ export default function AddNewMeetup() {
   }
 
   return (
-    <MainLayout>
-      <Head>
-        <title>Add New Meetup</title>
-        <meta name="description" content="Add your own meetup!" />
-      </Head>
-
+    <MainLayout title="Add New Meetup" meta_description="Add your own meetup!">
       <Formik
         initialValues={{
           title: "",
@@ -108,7 +103,7 @@ export default function AddNewMeetup() {
                     placeholder="Description"
                   />
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl>
                   <FormLabel>Image</FormLabel>
                   <Field
                     name="image"

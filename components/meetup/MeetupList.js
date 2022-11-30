@@ -10,7 +10,7 @@ export default function MeetupList({ data }) {
         xl: "repeat(3,1fr)",
       }}
       gap={8}
-      p={{ base: 2, md: 6 }}
+      p={{ base: 4, md: 6 }}
     >
       {data.map((meetup) => (
         <GridItem key={meetup.id}>

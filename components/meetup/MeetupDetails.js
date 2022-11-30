@@ -10,7 +10,7 @@ import {
 
 export default function MeetupDetails({ image, title, address, description }) {
   return (
-    <VStack spacing={8} p={8}>
+    <VStack spacing={8} p={{ base: 4, md: 6 }}>
       <Image
         src={image}
         alt={title}

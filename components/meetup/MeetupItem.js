@@ -1,13 +1,10 @@
 import {
-  Flex,
-  Spacer,
   Heading,
   Text,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Image,
+  Img,
   Stack,
   Button,
 } from "@chakra-ui/react";
@@ -29,13 +26,15 @@ export default function MeetupItem({ id, title, address, image, description }) {
       minH={{ lg: "290px", xl: "500px" }}
       maxH={{ xl: "500px" }}
     >
-      <Image
+      <Img
         objectFit="cover"
         maxW={{ base: "100%", md: "190px", xl: "unset" }}
-        src={image}
+        src={image ? image : `/placeholder_img.jpeg`}
         alt={title}
         height={{ xl: "250px" }}
-        width={{ xl: "100%" }}
+        width={{ base: "100%", xl: "100%" }}
+        loading="lazy"
+        sizes="10px"
       />
 
       <Stack flexGrow={1}>
