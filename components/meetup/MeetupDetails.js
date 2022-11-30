@@ -12,7 +12,7 @@ export default function MeetupDetails({ image, title, address, description }) {
   return (
     <VStack spacing={8} p={{ base: 4, md: 6 }}>
       <Image
-        src={image}
+        src={image ? image : `/placeholder_img.jpeg`}
         alt={title}
         objectFit="cover"
         height="250px"
