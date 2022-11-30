@@ -13,11 +13,12 @@ import {
   Image,
   HStack,
   Link,
+  Divider,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import ProfilePicture from "../profile/ProfilePicture";
+import { MdLogout, MdKeyboardArrowDown } from "react-icons/md";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
@@ -85,18 +86,18 @@ export default function Navigation() {
               borderColor: "gray.100",
               textColor: "black",
             }}
-            rightIcon={<ChevronDownIcon />}
+            rightIcon={<MdKeyboardArrowDown />}
             py={{ md: 6 }}
             px={{ md: 3 }}
             p={{ base: 0 }}
           >
             <HStack>
               <Text display={{ base: "none", md: "block" }}>
-                {status === "authenticated" && session.user.name}
+                {session && session.user.name}
               </Text>
               <ProfilePicture
-                src={status === "authenticated" && session.user.image}
-                name={status === "authenticated" && session.user.name}
+                src={session && session.user.image}
+                name={session && session.user.name}
               />
             </HStack>
           </MenuButton>
@@ -137,14 +138,16 @@ export default function Navigation() {
                 </Link>
               </NextLink>
             </MenuItem>
+            <Divider my={2} />
             <MenuItem
               as={Button}
-              rightIcon={<ExternalLinkIcon />}
+              rightIcon={<MdLogout />}
               onClick={() => signOut()}
               _hover={{
                 bg: "red.500",
                 textColor: "white",
               }}
+              justifyContent="space-between"
             >
               Sign Out
             </MenuItem>

@@ -4,11 +4,7 @@ import MainLayout from "../../../layouts/MainLayout";
 
 export default function MeetupDetailsPage({ meetup }) {
   return (
-    <MainLayout>
-      <Head>
-        <title>{meetup.title}</title>
-        <meta name="description" content={meetup.description} />
-      </Head>
+    <MainLayout title={meetup.title} meta_description={meetup.description}>
       <MeetupDetails
         title={meetup.title}
         image={meetup.image}
@@ -52,6 +48,7 @@ export async function getStaticProps(context) {
       props: {
         meetup: meetupsData,
       },
+      revalidate: 3,
     };
   }
 }
